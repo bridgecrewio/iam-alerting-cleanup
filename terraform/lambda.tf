@@ -20,7 +20,7 @@ resource "aws_lambda_function" "lambda" {
 
   environment {
     variables = {
-      foo = "bar"
+      LOG_LEVEL = "INFO"
     }
   }
 
