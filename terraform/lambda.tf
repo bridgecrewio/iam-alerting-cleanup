@@ -37,15 +37,15 @@ resource "aws_lambda_function" "lambda" {
   ]
 }
 
-resource "aws_cloudwatch_event_rule" "every_one_minute" {
-  name                = "every-one-minute"
-  description         = "Fires every one minutes"
-  schedule_expression = "rate(1 minute)"
+resource "aws_cloudwatch_event_rule" "trigger" {
+  name                = "iam-alert-lambda-trigger"
+  description         = "Fires every day"
+  schedule_expression = "rate(1 day)"
   is_enabled = false
 }
 
 resource "aws_cloudwatch_event_target" "check_foo_every_one_minute" {
-  rule      = "${aws_cloudwatch_event_rule.every_one_minute.name}"
+  rule      = "${aws_cloudwatch_event_rule.trigger.name}"
   target_id = "lambda"
   arn       = "${aws_lambda_function.lambda.arn}"
 }
@@ -55,5 +55,5 @@ resource "aws_lambda_permission" "allow_cloudwatch_to_call_check_foo" {
   action        = "lambda:InvokeFunction"
   function_name = "${aws_lambda_function.lambda.function_name}"
   principal     = "events.amazonaws.com"
-  source_arn    = "${aws_cloudwatch_event_rule.every_one_minute.arn}"
+  source_arn    = "${aws_cloudwatch_event_rule.trigger.arn}"
 }
