@@ -1,11 +1,32 @@
 data "aws_iam_policy_document" "lambda_policy" {
   statement {
-    sid = "AllowS3"
+    sid = "AllowUserManagement"
     actions = [
-      "s3:*"]
-    resources = [
-      "arn:aws:s3:::*"
+      "iam:GetAccessKeyLastUsed",
+      "iam:UpdateAccessKey",
+      "iam:DeleteLoginProfile",
+      "iam:ListUserTags",
+      "iam:ListAccessKeys"
     ]
+    resources = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/*"]
+  }
+
+  statement {
+    sid = "AllowGetUserMetadata"
+    actions = [
+      "iam:GenerateCredentialReport",
+      "iam:ListUsers",
+      "iam:GetCredentialReport"
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid = "AllowSendEmail"
+    actions = [
+      "ses:SendEmail"
+    ]
+    resources = [aws_ses_email_identity.email_sender.arn]
   }
 }
 

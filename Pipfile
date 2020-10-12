@@ -8,6 +8,7 @@ verify_ssl = true
 [packages]
 boto3 = "*"
 boto3-type-annotations = "*"
+pytz = "*"
 
 [requires]
 python_version = "3.8"

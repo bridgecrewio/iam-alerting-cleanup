@@ -15,12 +15,19 @@ resource "aws_lambda_function" "lambda" {
   function_name = "iam-alert-disable"
   role          = aws_iam_role.iam_for_lambda.arn
   handler       = "handler.handler"
+  timeout = 120
 
   runtime = "python3.8"
 
   environment {
     variables = {
       LOG_LEVEL = "INFO"
+      EMAIL_TAG_NAME = "email"
+      SELECTION_TAG_NAME = "email"
+      ALERT_THRESHOLDS = "0, 1"
+      DISABLE_THRESHOLD = "2"
+      EMAIL_SENDER = local.ses_email_sender
+      SKIP_TAG = "skip-cleanup=true"
     }
   }
 
