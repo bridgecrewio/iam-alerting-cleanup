@@ -24,8 +24,10 @@ Set the following Lambda environment variables in lambda.tf:
 * SKIP_TAG - the key and value of a tag that indicates an IAM user should be skipped, even if they are matched by the email and selection tag. The format must be "TagName=TagValue". Optional.
 * ALERT_THRESHOLDS - a comma-separated list of days after which to send alerts to users. Each time a credential exceeds a new threshold, the user will receive an alert email. Example: "60, 75, 85, 89". Required.
 * DISABLE_THRESHOLD - the number of days after which an unused credential will be disabled. Example: "90". Required.
+* ALERT_ON_DISABLE - whether to send a notification email when a credential is disabled. Defaults to False.
 * EMAIL_SENDER - the display name and email address of the user from which to send emails. Example: "IT Eng <noreply@address.com>". Required.
 * ACCOUNT_ALIAS - a user-friendly alias for the AWS account to be used in email subject lines. Optional; defaults to account ID.
+* DYNAMO_TABLE_NAME - the name of the DynamoDB table for state storage.
 
 ### Execution
 

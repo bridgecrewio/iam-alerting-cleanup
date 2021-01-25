@@ -22,12 +22,15 @@ resource "aws_lambda_function" "lambda" {
   environment {
     variables = {
       LOG_LEVEL = "INFO"
-      EMAIL_TAG_NAME = "email"
-      SELECTION_TAG_NAME = "email"
-      ALERT_THRESHOLDS = "0, 1"
-      DISABLE_THRESHOLD = "2"
+      EMAIL_TAG_NAME = "email"  #TODO
+      SELECTION_TAG_NAME = "email"  #TODO
+      ALERT_THRESHOLDS = "60, 80"  #TODO
+      DISABLE_THRESHOLD = "90"  #TODO
       EMAIL_SENDER = local.ses_email_sender
-      SKIP_TAG = "skip-cleanup=true"
+      SKIP_TAG = "skip-cleanup=true"  #TODO
+      ALERT_ON_DISABLE = "true"  #TODO
+      #ACCOUNT_ALIAS = "prod"  #TODO
+      DYNAMO_TABLE_NAME =
     }
   }
 
